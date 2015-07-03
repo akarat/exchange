@@ -1,11 +1,16 @@
+# coding: utf-8
 
 import re
 from setuptools import setup
 
 
-with open('exchange.py') as f:
-    m = re.findall(r'__version__\s*=\s*\'(.*)\'', f.read())
-    version = m[0]
+def fread(filepath):
+    with open(filepath, 'rb') as f:
+        return f.read().decode('utf-8')
+
+
+m = re.findall(r'__version__\s*=\s*\'(.*)\'', fread('exchange.py'))
+version = m[0]
 
 
 setup(
@@ -16,6 +21,7 @@ setup(
     url='https://github.com/akarat/exchange',
     py_modules=['exchange'],
     description='Get the current exchange rate.',
+    long_description=fread('README.rst'),
     license='BSD',
     platforms='any',
     install_requires=['requests'],

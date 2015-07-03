@@ -14,6 +14,8 @@ import requests
 __author__ = 'Hsiaoming Yang <me@lepture.com>'
 __version__ = '0.1'
 
+__all__ = ['rate']
+
 
 def rate(base, target):
     """Get current exchange rate.
