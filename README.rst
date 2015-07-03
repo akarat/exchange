@@ -23,6 +23,7 @@ The only method you would use is ``rate``::
 
     >>> import exchange
     >>> exchange.rate('USD', 'CNY')
+    6.070
 
 License
 -------

@@ -13,7 +13,7 @@ import requests
 
 
 __author__ = 'Hsiaoming Yang <me@lepture.com>'
-__version__ = '0.1'
+__version__ = '0.2'
 
 __all__ = ['rate']
 
@@ -25,6 +25,7 @@ def rate(base, target, error_log=None):
 
     :param base: A base currency
     :param target: Convert to the target currency
+    :param error_log: A callable function to track the exception
 
     It parses current exchange rate from these services:
 
