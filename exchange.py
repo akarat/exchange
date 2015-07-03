@@ -62,7 +62,7 @@ def yahoo(base, target):
         },
         timeout=1,
     )
-    return resp.content.split(',', 2)[1]
+    return resp.text.split(',', 2)[1]
 
 
 def fixer(base, target):
@@ -84,12 +84,12 @@ def ecb(base, target):
     """Parse data from European Central Bank."""
     api_url = 'http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'
     resp = requests.get(api_url, timeout=1)
-    content = resp.content
+    text = resp.text
 
     def _find_rate(symbol):
         if symbol == 'EUR':
             return 1.00
-        m = re.findall(r"currency='%s' rate='([0-9\.]+)'" % symbol, content)
+        m = re.findall(r"currency='%s' rate='([0-9\.]+)'" % symbol, text)
         return float(m[0])
 
     return round(_find_rate(target) / _find_rate(base), 4)
