@@ -52,7 +52,7 @@ def rate(base, target):
 
 def yahoo(base, target):
     """Parse data from Yahoo."""
-    api_url = 'http://finance.yahoo.com/d/quotes.csv'
+    api_url = 'http://download.finance.yahoo.com/d/quotes.csv'
     resp = requests.get(
         api_url,
         params={
@@ -62,7 +62,8 @@ def yahoo(base, target):
         },
         timeout=1,
     )
-    return resp.text.split(',', 2)[1]
+    value = resp.text.split(',', 2)[1]
+    return float(value)
 
 
 def fixer(base, target):
