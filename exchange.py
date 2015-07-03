@@ -8,6 +8,7 @@
 """
 
 import re
+import logging
 import requests
 
 
@@ -16,8 +17,10 @@ __version__ = '0.1'
 
 __all__ = ['rate']
 
+logger = logging.getLogger('exchange')
 
-def rate(base, target):
+
+def rate(base, target, error_log=None):
     """Get current exchange rate.
 
     :param base: A base currency
@@ -41,13 +44,19 @@ def rate(base, target):
         return 1.00
 
     services = [yahoo, fixer, ecb]
+    if error_log is None:
+        error_log = _error_log
 
     for fn in services:
         try:
             return fn(base, target)
-        except:
-            pass
+        except Exception as e:
+            error_log(e)
     return None
+
+
+def _error_log(e):
+    logger.exception('Exchange Exception: %r' % e)
 
 
 def yahoo(base, target):
