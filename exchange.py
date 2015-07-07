@@ -14,7 +14,7 @@ import requests
 
 
 __author__ = 'Hsiaoming Yang <me@lepture.com>'
-__version__ = '0.2'
+__version__ = '0.3'
 
 __all__ = ['rate']
 
@@ -40,7 +40,7 @@ def rate(base, target, error_log=None):
 
         >>> import exchange
         >>> exchange.rate('USD', 'CNY')
-        6.2045
+        Decimal('6.2045')
     """
     if base == target:
         return decimal.Decimal(1.00)

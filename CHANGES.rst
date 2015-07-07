@@ -4,6 +4,13 @@ Changelog
 Here is the history of the project.
 
 
+Version 0.3
+~~~~~~~~~~~
+
+Released on Jul. 7, 2015
+
+* Return rate value as Decimal
+
 Version 0.2
 ~~~~~~~~~~~
 
