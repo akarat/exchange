@@ -8,6 +8,7 @@
 """
 
 import re
+import decimal
 import logging
 import requests
 
@@ -34,7 +35,7 @@ def rate(base, target, error_log=None):
         3) European Central Bank
 
     It will fallback to the next service when previous not available.
-    The exchane rate is a float number. If `None` is returned, it means
+    The exchane rate is a decimal number. If `None` is returned, it means
     the parsing goes wrong::
 
         >>> import exchange
@@ -42,7 +43,7 @@ def rate(base, target, error_log=None):
         6.2045
     """
     if base == target:
-        return 1.00
+        return decimal.Decimal(1.00)
 
     services = [yahoo, fixer, ecb]
     if error_log is None:
@@ -73,7 +74,7 @@ def yahoo(base, target):
         timeout=1,
     )
     value = resp.text.split(',', 2)[1]
-    return float(value)
+    return decimal.Decimal(value)
 
 
 def fixer(base, target):
@@ -88,7 +89,7 @@ def fixer(base, target):
         timeout=1,
     )
     data = resp.json()
-    return data['rates'][target]
+    return decimal.Decimal(data['rates'][target])
 
 
 def ecb(base, target):
@@ -99,8 +100,8 @@ def ecb(base, target):
 
     def _find_rate(symbol):
         if symbol == 'EUR':
-            return 1.00
+            return decimal.Decimal(1.00)
         m = re.findall(r"currency='%s' rate='([0-9\.]+)'" % symbol, text)
-        return float(m[0])
+        return decimal.Decimal(m[0])
 
-    return round(_find_rate(target) / _find_rate(base), 4)
+    return _find_rate(target) / _find_rate(base)
